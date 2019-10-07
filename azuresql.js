@@ -33,9 +33,10 @@ module.exports = function (RED) {
         client.close();
     }
      
-     if (!options) {
-         options = { encrypt: true, database: dbName, rowCollectionOnDone: true };
+    if (!options) {
+        options = { encrypt: true, database: dbName, rowCollectionOnDone: true };
     }
+    console.log("options", options); 
     // Prepare config
     var config = {  
         userName: username,  
@@ -166,6 +167,8 @@ module.exports = function (RED) {
                     setStatus(statusEnum.error);
                     break;
             }
+            
+            options = msg.options;
         });
 
         this.on('close', function () {
