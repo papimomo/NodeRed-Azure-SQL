@@ -10,6 +10,7 @@ module.exports = function (RED) {
     var pass = "";
     var queryString = "";
     var messageJSON = "";
+    var options = null;
     var node = null;
     var nodeConfig = null;
 
@@ -31,12 +32,16 @@ module.exports = function (RED) {
     if (client) {
         client.close();
     }
+     
+     if (!options) {
+         options = { encrypt: true, database: dbName, rowCollectionOnDone: true };
+    }
     // Prepare config
     var config = {  
         userName: username,  
         password: pass,  
         server: dbAddress,  
-        options: {encrypt: true, database: dbName, rowCollectionOnDone: true}  
+        options: options 
     };  
     // Create connection
     client = new Connection(config);  
